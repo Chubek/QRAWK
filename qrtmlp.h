@@ -126,9 +126,18 @@ new_lexer_conf(qRLPLexerSettings *settings)
 	return lpconf;
 }
 
-static inline qRLPLexer
-new_lexer
+static inline qRLPScan*
+new_scanner(qRLPLexerConf lpconf)
+{
+	qRLPScan	*scn	= calloc(1, sizeof(qRLPScan));
+	scn->lexer_conf = lpconf;
+}
 
+static inline void
+compile_scanner(qRLPScan *scn)
+{
+	scn->lexer_ctx 		= g_scanner_new(scn->lexer_conf);
+}
 
 
 
