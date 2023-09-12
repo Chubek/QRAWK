@@ -129,9 +129,25 @@ compile_scanner(qRLEXScan *scn)
 	scn->lexer_ctx 		= g_scanner_new(scn->lexer_conf);
 }
 
+static inline void
+free_scanner(qRLEXScan *scn)
+{
+	g_scanner_destroy(scn->lexer_ctx);
+	free(scn->lexer_conf);
+	free(scn);
+}
 
+static inline void
+inputfile_scanner(qRLEXScan *scn, int fd)
+{
+	g_scanner_input_file(scn->lexer_ctx, fd);
+}
 
-
+static inline void
+inputtext_scanner(qRLEXScan *scn, const qRLEXExpr text, gRLEXUint size)
+{
+	g_scanner_input_text(scn->lexer_ctx, text, size);
+}
 
 
 
