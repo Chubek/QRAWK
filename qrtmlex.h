@@ -1,8 +1,7 @@
-#ifndef Q_RTMLP_H_
-#define Q_RTMLP_H_
+#ifndef Q_RTMLEX_H__
+#define Q_RTMLEX_H_
 
 #include <glib-2.0/glib.h>
-#include <stdarg.h>
 #include <string.h>
 
 #define LOOKUP_CASE_SENSITIVE		"+cs"
@@ -29,49 +28,40 @@
 #define STORE_INT64			"sti64"
 #define SPEC_SENTINEL			NULL
 
-typedef GMarkupParser		*qRLPParser;
-typedef GMarkupParseContext	*qRLPParseCtx;
-typedef GScanner		*qRLPLexer;
-typedef GScannerConfig		*qRLPLexerConf;
-typedef GTokenType		*qRLPTokenType;
-typedef GTokenValue		*qRLPTokenValue;
-typedef GMarkupError		qRLPParseErr;
-typedef GErrorType		qRLPLexErr;
-typedef gchar			*qRLPExpr, *qRLPCharBuff;
-typedef gbool			qRLPBool;
-typedef gpointer		qRLPPointer;
-typedef gconstpointer		qRLPConstP;
-typedef guint			qRLPUint;
-typedef gint			qRLPInt;
-typedef gsize			qRLPSize;
-typedef gssize			qRLPSSize;
-typedef uint8_t			*qRLPSpec;
+typedef GScanner		*qRLEXLexer;
+typedef GScannerConfig		*qRLEXLexerConf;
+typedef GTokenType		*qRLEXTokenType;
+typedef GTokenValue		*qRLEXTokenValue;
+typedef GErrorType		qRLEXLexErr;
+typedef gchar			*qRLEXExpr, *qRLEXCharBuff;
+typedef gbool			qRLEXBool;
+typedef gpointer		qRLEXPointer;
+typedef gconstpointer		qRLEXConstP;
+typedef guint			qRLEXUint;
+typedef gint			qRLEXInt;
+typedef gsize			qRLEXSize;
+typedef gssize			qRLEXSSize;
+typedef uint8_t			*qRLEXSpec;
 
 typedef struct {
-	qRLPLexer		lexer_ctx;
-	qRLPLexerConf		lexer_conf;
-	qRLPLexErr		last_error;
-} qRLPScan;
+	qRLEXLexer		lexer_ctx;
+	qRLEXLexerConf		lexer_conf;
+	qRLEXLexErr		last_error;
+} qRLEXScan;
 
 typedef struct {
-	qRLPParser		parser_obj;
-	qRLPParseCtx		parser_ctx;
-	qRLPParseErr		last_error;
-} qRLPTokenize;
-
-typedef struct {
-	gRLPCharBuff		skip_charset;
-	gRLPCharBuff		ident_first_charset;
-	gRLPCharBuff		ident_nth_charset;
-	gRLPCharBuff		comment_cpair_charset;
+	gRLEXCharBuff		skip_charset;
+	gRLEXCharBuff		ident_first_charset;
+	gRLEXCharBuff		ident_nth_charset;
+	gRLEXCharBuff		comment_cpair_charset;
 	qRLSpec			specs_list[MAX_SPEC + 1];
-} qRLPLexerSettings;
+} qRLEXLexerSettings;
 
-static qRLPLexerConf
-new_lexer_conf(qRLPLexerSettings *settings)
+static qRLEXLexerConf
+new_lexer_conf(qRLEXLexerSettings *settings)
 {
-	qRLPLexerConf lpconf = calloc(1, sizeof(*qRLPLexerConf));
-	qRLPSpec     *spec_ls = &settings->specs_list[0], spec_str;
+	qRLEXLexerConf lpconf = calloc(1, sizeof(*qRLEXLexerConf));
+	qRLEXSpec     *spec_ls = &settings->specs_list[0], spec_str;
 	
 	while ((spec_str = *spec_ls++) != SPEC_SENTINEL)
 	{
@@ -126,15 +116,15 @@ new_lexer_conf(qRLPLexerSettings *settings)
 	return lpconf;
 }
 
-static inline qRLPScan*
-new_scanner(qRLPLexerConf lpconf)
+static inline qRLEXScan*
+new_scanner(qRLEXLexerConf lpconf)
 {
-	qRLPScan	*scn	= calloc(1, sizeof(qRLPScan));
+	qRLEXScan	*scn	= calloc(1, sizeof(qRLEXScan));
 	scn->lexer_conf = lpconf;
 }
 
 static inline void
-compile_scanner(qRLPScan *scn)
+compile_scanner(qRLEXScan *scn)
 {
 	scn->lexer_ctx 		= g_scanner_new(scn->lexer_conf);
 }
