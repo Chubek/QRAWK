@@ -1,7 +1,7 @@
 #ifndef Q_TREE_H_
 #define Q_TREE_H_
 
-#include <glib-2.0/glib.h>
+#include "import-glib.h"
 
 typedef GTree		*qTree;
 typedef GTreeNode	*qTreeNode;

@@ -1,7 +1,7 @@
 #ifndef QTABLE_H_
 #define QTABLE_H_
 
-#include <glib-2.0/glib.h>
+#include "import-glib.h"
 
 
 

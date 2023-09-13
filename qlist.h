@@ -1,7 +1,7 @@
 #ifndef Q_LIST_H_
 #define Q_LIST_H_
 
-#include <glib-2.0/glib.h>
+#include "import-glib.h"
 
 typedef GList		*qList;
 typedef GCompareFun	qLCmpFn;

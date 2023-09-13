@@ -1,7 +1,7 @@
 #ifndef Q_STRING_H_
 #define Q_STRING_H_
 
-#include <glib-2.0/glib.h>
+#include "import-glib.h"
 
 typedef GString		*qString;
 typedef const gchar	*qCharP;
