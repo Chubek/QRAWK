@@ -5,23 +5,31 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-typedef FILE		 *qSDTInPipe;
-typedef uint64_t	 qSDTCurrent, qSDTExpect;
+#include "qsdt-tags.inc"
+
+typedef uint64_t	 qSDTCurrent, qSDTExpect, qSDTTag;
 typedef uint8_t		 *qSDTImmCode;
+typedef qSDTTag		 (*nexttagfn_t)(void);
 
 typedef struct {
-	qSDTInPipe		input_channel;	
 	qSDTCurrent		current_tag;
 	qSDTExpect		expect_tag;
 	qSDTImmCode		inter_gen;
+	nexttagfn_t		nextfn;
 } qSDT;
 
 static inline qSDT*
-new_sdt(qSDTInPipe inch)
+new_sdt(nexttagfn_t nextfn)
 {
 	qSDT	*sdt	= calloc(1, sizeof(qSDT));
-	sdt->input_channel = inch;
+	sdt->nextfn	= nextfn;
 	return sdt;
+}
+
+static inline void
+free_sdt(qSDT *sdt)
+{
+	free(sdt);
 }
 
 
