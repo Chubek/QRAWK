@@ -1,7 +1,5 @@
-#ifndef Q_ABSTAG_H_
-#define Q_ABSTAG_H_
-
-#include <stdint.h>
+#ifndef Q_SDT_TAG_INC_
+#define Q_SDT_TAG_INT_
 
 #define LVALUE		(1 << 1) 
 #define RVALUE		(1 << 2)
@@ -47,13 +45,6 @@
 #define UNQUOTE		(1 << 42)
 #define EXEC		(1 << 43)
 #define EVAL		(1 << 44)
-
-typedef uint64_t abstag_t;
-
-
-
-
-
 
 
 
